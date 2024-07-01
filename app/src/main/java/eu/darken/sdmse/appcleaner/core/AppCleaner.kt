@@ -118,12 +118,27 @@ class AppCleaner @Inject constructor(
                     is AppCleanerProcessingTask -> performProcessing(task)
                     is AppCleanerSchedulerTask -> {
                         performScan()
-                        performProcessing(AppCleanerProcessingTask(useAutomation = task.useAutomation))
+                        performProcessing(
+                            AppCleanerProcessingTask(
+                                useAutomation = task.useAutomation,
+                                isBackground = true,
+                            )
+                        ).let {
+                            AppCleanerSchedulerTask.Success(
+                                affectedSpace = it.affectedSpace,
+                                affectedPaths = it.affectedPaths,
+                            )
+                        }
                     }
 
                     is AppCleanerOneClickTask -> {
                         performScan()
-                        performProcessing()
+                        performProcessing().let {
+                            AppCleanerOneClickTask.Success(
+                                affectedSpace = it.affectedSpace,
+                                affectedPaths = it.affectedPaths,
+                            )
+                        }
                     }
                 }
             }
@@ -170,7 +185,7 @@ class AppCleaner @Inject constructor(
 
     private suspend fun performProcessing(
         task: AppCleanerProcessingTask = AppCleanerProcessingTask()
-    ): AppCleanerProcessingTask.Result {
+    ): AppCleanerProcessingTask.Success {
         log(TAG, VERBOSE) { "performProcessing(): $task" }
 
         val snapshot = internalData.value ?: throw IllegalStateException("Data is null")
@@ -259,6 +274,8 @@ class AppCleaner @Inject constructor(
         updateProgressPrimary(eu.darken.sdmse.common.R.string.general_progress_filtering)
         updateProgressSecondary(CaString.EMPTY)
 
+        val deleted = mutableSetOf<APath>()
+
         internalData.value = snapshot.copy(
             junks = snapshot.junks
                 .map { appJunk ->
@@ -270,13 +287,18 @@ class AppCleaner @Inject constructor(
                                 val isDeleted = accessibleDeletionMap.getOrDefault(appJunk.identifier, emptySet()).any {
                                     it.path.isAncestorOf(match.path) || it.path.matches(match.path)
                                 }
+                                if (isDeleted) deleted.add(match.path)
                                 !isDeleted
                             }
                         }
                         ?.filterValues { it.isNotEmpty() }
 
                     val updatedInaccessible = when {
-                        inaccessibleSuccesses.contains(appJunk.identifier) -> null
+                        inaccessibleSuccesses.contains(appJunk.identifier) -> {
+                            deleted.addAll(appJunk.inaccessibleCache?.theoreticalPaths!!)
+                            null
+                        }
+
                         else -> appJunk.inaccessibleCache
                     }
 
@@ -289,16 +311,13 @@ class AppCleaner @Inject constructor(
         )
 
         // Force check via !! because we should not have ran automation for any junk without inaccessible data
-        val automationCount = inaccessibleSuccesses
-            .map { inaccessible -> snapshot.junks.single { it.identifier == inaccessible }.inaccessibleCache!! }
-            .sumOf { it.itemCount }
         val automationSize = inaccessibleSuccesses
             .map { inaccessible -> snapshot.junks.single { it.identifier == inaccessible }.inaccessibleCache!! }
             .sumOf { it.cacheBytes }
 
         return AppCleanerProcessingTask.Success(
-            deletedCount = accessibleDeletionMap.values.sumOf { it.size } + automationCount,
-            recoveredSpace = accessibleDeletionMap.values.sumOf { contents -> contents.sumOf { it.expectedGain } } + automationSize,
+            affectedSpace = accessibleDeletionMap.values.sumOf { contents -> contents.sumOf { it.expectedGain } } + automationSize,
+            affectedPaths = deleted,
         )
     }
 

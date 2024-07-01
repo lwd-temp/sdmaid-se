@@ -8,10 +8,11 @@
 )](https://github.com/d4rken-org/sdmaid-se/actions)
 [![Github Downloads](https://img.shields.io/github/downloads/d4rken-org/sdmaid-se/total.svg?label=GitHub%20Downloads&logo=github)](https://github.com/d4rken-org/sdmaid-se/edit/main/README.md#download)
 [![Google Play Downloads](https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Deu.darken.sdmse%26l%3DGoogle%2520Play%26m%3D%24totalinstalls)](https://github.com/d4rken-org/sdmaid-se/edit/main/README.md#download)
+[![⭐](https://img.shields.io/endpoint?url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Deu.darken.sdmse%26gl%3DUS%26hl%3Den%26l%3D%25E2%25AD%2590%26m%3D%24rating)](https://github.com/d4rken-org/sdmaid-se/edit/main/README.md#download)
 
 > _**SD Maid 2/SE is actively being worked on and not feature complete. Feature requests are welcome!**_
 
-[SD Maid SE](https://github.com/d4rken-org/sdmaid-se) (aka SD Maid 2) is a file management tool for Android that
+[SD Maid SE](https://github.com/d4rken-org/sdmaid-se) (AKA SD Maid 2) is a file management tool for Android that
 specialises in maintenance. Its core purpose is freeing up space and removing unwanted data.
 
 Features include:
@@ -33,12 +34,14 @@ the [FAQ](https://github.com/d4rken-org/sdmaid-se/wiki/FAQ).
 
 ## Download
 
-| Source                                                                       | Status                                                                                                                                                                                                                                                     |
-|------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Google Play](https://play.google.com/store/apps/details?id=eu.darken.sdmse) | [![](https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Deu.darken.sdmse%26gl%3DUS%26hl%3Den%26l%3DGoogle%2520Play%26m%3D%24version)](https://play.google.com/store/apps/details?id=eu.darken.sdmse) |
-| [Google Play Beta](https://play.google.com/apps/testing/eu.darken.sdmse)     | ![](https://img.shields.io/badge/Open%20Test%20Track%20-%20Google%20Play?logo=googleplay&logoColor=googleplay&label=Google%20Play)                                                                                                                                                                                                                                                        |
-| [Github Releases](https://github.com/d4rken-org/sdmaid-se/releases)          | [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/d4rken-org/sdmaid-se?include_prereleases&label=GitHub)](https://github.com/d4rken-org/sdmaid-se/releases/latest)                                         |
-| [F-Droid (IzzyOnDroid)](https://apt.izzysoft.de/packages/eu.darken.sdmse/)   | [![](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/eu.darken.sdmse)](https://apt.izzysoft.de/packages/eu.darken.sdmse/)                                                                                                 |
+| Source                                                                                 | Status                                                                                                                                                                                                                          |
+|----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Google Play (Release)](https://play.google.com/store/apps/details?id=eu.darken.sdmse) | ![](https://img.shields.io/endpoint?color=green&logo=google-play&logoColor=green&url=https%3A%2F%2Fplay.cuzi.workers.dev%2Fplay%3Fi%3Deu.darken.sdmse%26gl%3DUS%26hl%3Den%26l%3DGoogle%2520Play%2520(Release)%26m%3D%24version) |
+| [Google Play (Open Testing)](https://play.google.com/apps/testing/eu.darken.sdmse)     | ![](https://img.shields.io/badge/Open%20Test%20Track%20-%20Google%20Play?logo=googleplay&logoColor=googleplay&label=Google%20Play)                                                                                              |
+| [Github (Release)](https://github.com/d4rken-org/sdmaid-se/releases)                   | ![](https://img.shields.io/github/v/release/d4rken-org/sdmaid-se?display_name=release&logo=github&label=GitHub%20(Release))                                                                                                     |
+| [Github (Pre-Release)](https://github.com/d4rken-org/sdmaid-se/releases)               | ![](https://img.shields.io/github/v/release/d4rken-org/sdmaid-se?include_prereleases&display_name=release&logo=github&label=GitHub%20(Pre-Release))                                                                             |
+| [F-Droid (Main Repo)](https://f-droid.org/en/packages/eu.darken.sdmse/)                | ![](https://img.shields.io/f-droid/v/eu.darken.sdmse?logo=f-droid&label=f-droid%20(latest))                                                                                                                                     |
+| [F-Droid (IzzyOnDroid)](https://apt.izzysoft.de/packages/eu.darken.sdmse/)             | ![](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/eu.darken.sdmse&label=IzzyOnDroid%20(latest))                                                                                              |
 
 ## Support the project
 
@@ -58,7 +61,7 @@ sponsor ❤️.
 
 ## Screenshots
 
-<img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/1.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/2.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/3.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/4.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/5.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/6.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/7.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/8.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/.assets/screenshots/9.png" width="100">
+<img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/8.png" width="100"><img src="https://github.com/d4rken-org/sdmaid-se/raw/main/fastlane/metadata/android/en-US/images/phoneScreenshots/9.png" width="100">
 
 ## License
 

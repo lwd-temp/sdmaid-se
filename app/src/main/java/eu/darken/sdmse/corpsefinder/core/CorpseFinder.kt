@@ -9,24 +9,40 @@ import eu.darken.sdmse.common.ca.CaString
 import eu.darken.sdmse.common.ca.caString
 import eu.darken.sdmse.common.ca.toCaString
 import eu.darken.sdmse.common.coroutine.AppScope
-import eu.darken.sdmse.common.datastore.value
-import eu.darken.sdmse.common.debug.logging.Logging.Priority.*
+import eu.darken.sdmse.common.debug.logging.Logging.Priority.INFO
+import eu.darken.sdmse.common.debug.logging.Logging.Priority.WARN
 import eu.darken.sdmse.common.debug.logging.log
 import eu.darken.sdmse.common.debug.logging.logTag
-import eu.darken.sdmse.common.files.*
+import eu.darken.sdmse.common.files.APath
+import eu.darken.sdmse.common.files.GatewaySwitch
+import eu.darken.sdmse.common.files.WriteException
+import eu.darken.sdmse.common.files.deleteAll
+import eu.darken.sdmse.common.files.filterDistinctRoots
+import eu.darken.sdmse.common.files.isAncestorOf
+import eu.darken.sdmse.common.files.matches
 import eu.darken.sdmse.common.flow.replayingShare
 import eu.darken.sdmse.common.forensics.FileForensics
 import eu.darken.sdmse.common.pkgs.pkgops.PkgOps
-import eu.darken.sdmse.common.progress.*
+import eu.darken.sdmse.common.progress.Progress
+import eu.darken.sdmse.common.progress.updateProgressPrimary
+import eu.darken.sdmse.common.progress.updateProgressSecondary
+import eu.darken.sdmse.common.progress.withProgress
 import eu.darken.sdmse.common.root.RootManager
 import eu.darken.sdmse.common.sharedresource.SharedResource
 import eu.darken.sdmse.common.sharedresource.keepResourceHoldersAlive
 import eu.darken.sdmse.common.user.UserManager2
 import eu.darken.sdmse.corpsefinder.core.filter.CorpseFilter
-import eu.darken.sdmse.corpsefinder.core.tasks.*
+import eu.darken.sdmse.corpsefinder.core.tasks.CorpseFinderDeleteTask
+import eu.darken.sdmse.corpsefinder.core.tasks.CorpseFinderOneClickTask
+import eu.darken.sdmse.corpsefinder.core.tasks.CorpseFinderScanTask
+import eu.darken.sdmse.corpsefinder.core.tasks.CorpseFinderSchedulerTask
+import eu.darken.sdmse.corpsefinder.core.tasks.CorpseFinderTask
+import eu.darken.sdmse.corpsefinder.core.tasks.UninstallWatcherTask
 import eu.darken.sdmse.corpsefinder.core.watcher.ExternalWatcherResult
 import eu.darken.sdmse.corpsefinder.core.watcher.UninstallWatcherNotifications
-import eu.darken.sdmse.exclusion.core.*
+import eu.darken.sdmse.exclusion.core.ExclusionManager
+import eu.darken.sdmse.exclusion.core.pathExclusions
+import eu.darken.sdmse.exclusion.core.pkgExclusions
 import eu.darken.sdmse.exclusion.core.types.Exclusion
 import eu.darken.sdmse.exclusion.core.types.PathExclusion
 import eu.darken.sdmse.exclusion.core.types.match
@@ -118,8 +134,8 @@ class CorpseFinder @Inject constructor(
                                 val watcherResult = ExternalWatcherResult.Deletion(
                                     appName = pkgOps.getLabel(task.target)?.toCaString(),
                                     pkgId = task.target,
-                                    deletedItems = it.deletedItems,
-                                    freedSpace = it.recoveredSpace,
+                                    deletedItems = it.affectedCount,
+                                    freedSpace = it.affectedSpace,
                                 )
                                 watcherNotifications.notifyOfDeletion(watcherResult)
                             }
@@ -134,19 +150,29 @@ class CorpseFinder @Inject constructor(
 
                         UninstallWatcherTask.Success(
                             foundItems = targets.size,
-                            deletedItems = internalDeleteResult?.deletedItems ?: 0,
-                            recoveredSpace = internalDeleteResult?.recoveredSpace ?: 0L,
+                            affectedPaths = internalDeleteResult?.affectedPaths ?: emptySet(),
+                            affectedSpace = internalDeleteResult?.affectedSpace ?: 0L,
                         )
                     }
 
                     is CorpseFinderSchedulerTask -> {
                         performScan()
-                        deleteCorpses()
+                        deleteCorpses().let {
+                            CorpseFinderSchedulerTask.Success(
+                                affectedSpace = it.affectedSpace,
+                                affectedPaths = it.affectedPaths,
+                            )
+                        }
                     }
 
                     is CorpseFinderOneClickTask -> {
                         performScan()
-                        deleteCorpses()
+                        deleteCorpses().let {
+                            CorpseFinderOneClickTask.Success(
+                                affectedSpace = it.affectedSpace,
+                                affectedPaths = it.affectedPaths,
+                            )
+                        }
                     }
                 }
             }
@@ -164,7 +190,7 @@ class CorpseFinder @Inject constructor(
 
     private suspend fun performScan(
         task: CorpseFinderScanTask = CorpseFinderScanTask()
-    ): CorpseFinderTask.Result {
+    ): CorpseFinderScanTask.Result {
         log(TAG) { "performScan(): $task" }
 
         if (!appInventorySetupModule.isComplete()) {
@@ -321,8 +347,8 @@ class CorpseFinder @Inject constructor(
         )
 
         return CorpseFinderDeleteTask.Success(
-            deletedItems = deletedCorpses.size + deletedContents.values.sumOf { it.size },
-            recoveredSpace = deletedCorpses.sumOf { it.size } + deletedContentSize
+            affectedSpace = deletedCorpses.sumOf { it.size } + deletedContentSize,
+            affectedPaths = deletedCorpses.map { it.lookup.lookedUp }.toSet(),
         )
     }
 

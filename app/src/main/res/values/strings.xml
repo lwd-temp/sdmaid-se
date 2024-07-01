@@ -136,6 +136,7 @@
     <string name="setup_shizuku_card_title">Shizuku</string>
     <string name="setup_shizuku_card_body">Allow SD Maid to use Shizuku where possible to improve results and enable features.</string>
     <string name="setup_shizuku_card_body2">This setting has no effect if the Shizuku app is not set up on your device.</string>
+    <string name="setup_shizuku_card_root_info">Shizuku in combination with root access does not enable additional features, but it improves reliability. SD Maid will use it as fallback method.</string>
     <string name="setup_shizuku_state_ready_label">Shizuku link is ready.</string>
     <string name="setup_shizuku_state_waiting_label">Waiting for link with Shizuku.</string>
     <string name="setup_shizuku_enable_shizuku_use_label">Use Shizuku if available</string>
@@ -231,6 +232,10 @@
     <string name="corpsefinder_filter_appasec_summary">Encrypted app resources, e.g. game assets.</string>
     <string name="corpsefinder_filter_app2sd_summary">Data moved to external storage by App2Sd mods.</string>
     <string name="corpsefinder_filter_app2sd_label">App2SD</string>
+    <plurals name="corpsefinder_result_x_corpses_deleted">
+        <item quantity="one">%d app remnant deleted</item>
+        <item quantity="other">%d app remnants deleted</item>
+    </plurals>
     <plurals name="corpsefinder_result_x_corpses_found">
         <item quantity="one">%d app remnant discovered</item>
         <item quantity="other">%d app remnants discovered</item>
@@ -244,6 +249,10 @@
 
     <string name="systemcleaner_tool_name">SystemCleaner</string>
     <string name="systemcleaner_explanation_short">Superfluous data that doesn\'t belong to any specific app.</string>
+    <plurals name="systemcleaner_result_x_items_deleted">
+        <item quantity="one">%d match deleted</item>
+        <item quantity="other">%d matches deleted</item>
+    </plurals>
     <plurals name="systemcleaner_result_x_items_found">
         <item quantity="one">%d filter match</item>
         <item quantity="other">%d filter matches</item>
@@ -380,6 +389,10 @@
     <string name="appcleaner_filter_viber_label">Viber</string>
     <string name="appcleaner_filter_viber_summary">Cached media files that are downloaded again when viewed in chat.</string>
     <string name="appcleaner_delete_all_confirmation_message">Delete expendable items for all apps?</string>
+    <plurals name="appcleaner_result_x_items_deleted">
+        <item quantity="one">%d expendable item deleted</item>
+        <item quantity="other">%d expendable items deleted</item>
+    </plurals>
     <plurals name="appcleaner_result_x_items_found">
         <item quantity="one">%d expendable item found</item>
         <item quantity="other">%d expendable items found</item>
@@ -408,6 +421,10 @@
 
     <string name="deduplicator_tool_name">Deduplicator</string>
     <string name="deduplicator_explanation_short">Find duplicate data on your device.</string>
+    <plurals name="deduplicator_result_x_clusters_processed">
+        <item quantity="one">%d duplicate deleted</item>
+        <item quantity="other">%d duplicates deleted</item>
+    </plurals>
     <plurals name="deduplicator_result_x_clusters_found">
         <item quantity="one">%d duplicate set found</item>
         <item quantity="other">%d duplicate sets found</item>
@@ -665,4 +682,22 @@
     <string name="review_app_review_action">Review</string>
     <string name="review_app_dismiss_action">Maybe later</string>
     <string name="review_app_body">Would you like to leave SD Maid a review?️ ❤️</string>
+
+    <string name="stats_label">History</string>
+    <string name="stats_dash_body">%s have been freed and %s items processed since you invited SD Maid to your device.</string>
+    <string name="stats_report_status_success">Success</string>
+    <string name="stats_report_status_partial_success">Partial success</string>
+    <string name="stats_report_status_partial_failure">Failure</string>
+    <string name="stats_settings_desc">Configure SD Maid\'s statistics, reports and data retention.</string>
+    <string name="stats_settings_retention_category">Retention</string>
+    <string name="stats_settings_retention_reports_label">General reports</string>
+    <string name="stats_settings_retention_reports_desc">Number of days before deleting basic SD Maid operation reports.</string>
+    <string name="stats_settings_retention_paths_label">Detailed path information</string>
+    <string name="stats_settings_retention_paths_desc">The number of days to keep details about paths affected by SD Maid.</string>
+    <plurals name="stats_settings_retention_x_days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <string name="stats_settings_reset_all_label">Reset all</string>
+    <string name="stats_settings_reset_all_desc">Delete all reports and set all statistics to zero.</string>
 </resources>
